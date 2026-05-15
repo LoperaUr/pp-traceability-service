@@ -1,0 +1,14 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: pp-traceability-service
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/traceability}
+  security:
+    jwt:
+      secret: ${JWT_SECRET:66df918f-c69c-4cc6-9be0-8172d2a4408b}
+      expiration: ${JWT_EXPIRATION:86400000}
+
