@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traceability-service
+  labels:
+    app: traceability-service
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traceability-service
+  template:
+    metadata:
+      labels:
+        app: traceability-service
+    spec:
+      containers:
+        - name: traceability-service
+          image: pp-traceability-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8083
+              protocol: TCP
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+          envFrom:
+            - secretRef:
+                name: shared-app-secret
+            - configMapRef:
+                name: shared-app-config
+      restartPolicy: Always
+
